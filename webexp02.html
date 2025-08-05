@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Counseling Appointment Form</title>
+  <style>
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      background-color:blanchedalmond;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: whitesmoke;
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px yellow;
+      box-sizing: border-box;
+    }
+    textarea {
+      resize: vertical;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background-color:darkblue;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Counseling Appointment Form</h2>
+    <form action="#" method="POST">
+      <label for="fullname">Full Name:</label>
+      <input type="text" id="fullname" name="fullname" required>
+
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" name="phone" required>
+
+      <label for="date">Preferred Date:</label>
+      <input type="date" id="date" name="date" required>
+
+      <label for="time">Preferred Time:</label>
+      <input type="time" id="time" name="time" required>
+
+      <label for="type">Counseling Type:</label>
+      <select id="type" name="type" required>
+        <option value="">-- Select --</option>
+        <option value="career">Career Counseling</option>
+        <option value="mental">Mental Health</option>
+        <option value="relationship">Relationship</option>
+        <option value="academic">Academic</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label for="message">Additional Message (optional):</label>
+      <textarea id="message" name="message" rows="4" placeholder="Enter your message..."></textarea>
+
+      <button type="submit">Book Appointment</button>
+    </form>
+  </div>
+</body>
+</html>
