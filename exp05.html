@@ -1,0 +1,147 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simple Math Operations — Addition, Subtraction, Multiplication, Division</title>
+  <style>
+    :root{--bg:#f7f8fb;--card:#ffffff;--accent:#2563eb;--muted:#6b7280}
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,#eef2ff 0%,#f7fafc 100%);margin:0;padding:28px;display:flex;align-items:center;justify-content:center;min-height:100vh}
+    .card{width:100%;max-width:520px;background:var(--card);padding:20px;border-radius:14px;box-shadow:0 10px 30px rgba(16,24,40,0.08)}
+    h1{margin:0 0 8px;font-size:20px}
+    p.sub{margin:0 0 18px;color:var(--muted);font-size:13px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+    input[type=number]{width:100%;padding:12px;border-radius:8px;border:1px solid #e6eaf0;font-size:15px}
+    select{padding:12px;border-radius:8px;border:1px solid #e6eaf0;font-size:15px}
+    .controls{display:flex;gap:8px;margin-bottom:12px}
+    button{flex:1;padding:10px 12px;border-radius:10px;border:0;background:var(--accent);color:#fff;font-weight:600;cursor:pointer}
+    button.secondary{background:#e6eefc;color:var(--accent);font-weight:600;border:1px solid rgba(37,99,235,0.12)}
+    .result{padding:14px;border-radius:10px;background:#fbfbff;border:1px dashed #e6eaf0;margin-bottom:12px}
+    .result strong{display:block;font-size:18px}
+    .meta{font-size:13px;color:var(--muted)}
+    .history{max-height:140px;overflow:auto;border-top:1px solid #f1f5f9;padding-top:10px}
+    .history small{display:block;padding:6px 8px;border-radius:8px;margin-bottom:6px;background:#f8fafc;border:1px solid #f1f5f9}
+    .footer{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+    @media (max-width:420px){.grid{grid-template-columns:1fr}} 
+  </style>
+</head>
+<body>
+  <main class="card" role="main">
+    <h1>Basic Math Operations</h1>
+    <p class="sub">Enter two numbers and choose an operation — addition, subtraction, multiplication or division. Results update instantly.</p><div class="grid">
+  <input id="num1" type="number" step="any" placeholder="First number" aria-label="First number">
+  <input id="num2" type="number" step="any" placeholder="Second number" aria-label="Second number">
+</div>
+
+<div style="display:flex;gap:12px;margin-bottom:12px;align-items:center">
+  <select id="operation" aria-label="Operation" style="flex:1">
+    <option value="add">Addition (+)</option>
+    <option value="sub">Subtraction (−)</option>
+    <option value="mul">Multiplication (×)</option>
+    <option value="div">Division (÷)</option>
+  </select>
+  <button id="calcBtn">Calculate</button>
+</div>
+
+<div class="result" id="resultBox" aria-live="polite">
+  <strong id="result">Result: —</strong>
+  <div class="meta" id="explain">Waiting for input.</div>
+</div>
+
+<div class="footer">
+  <div class="meta">Calculation history</div>
+  <div>
+    <button id="clearHistory" class="secondary" style="padding:8px 10px">Clear</button>
+  </div>
+</div>
+
+<div class="history" id="history"></div>
+
+  </main> <script>
+    // Helper: format number trimming unnecessary decimals
+    function fmt(n){
+      if (!isFinite(n)) return String(n);
+      // show up to 10 decimal places but trim trailing zeros
+      return parseFloat(parseFloat(n).toFixed(10)).toString();
+    }
+
+    const num1 = document.getElementById('num1');
+    const num2 = document.getElementById('num2');
+    const op = document.getElementById('operation');
+    const calcBtn = document.getElementById('calcBtn');
+    const resultEl = document.getElementById('result');
+    const explain = document.getElementById('explain');
+    const historyEl = document.getElementById('history');
+    const clearHistory = document.getElementById('clearHistory');
+
+    function compute(){
+      const aRaw = num1.value;
+      const bRaw = num2.value;
+
+      if (aRaw === '' || bRaw === ''){
+        resultEl.textContent = 'Result: —';
+        explain.textContent = 'Please enter both numbers.';
+        return;
+      }
+
+      const a = Number(aRaw);
+      const b = Number(bRaw);
+      const operation = op.value;
+      let res, expr;
+
+      if (!isFinite(a) || !isFinite(b)){
+        resultEl.textContent = 'Result: —';
+        explain.textContent = 'Invalid number entered.';
+        return;
+      }
+
+      switch(operation){
+        case 'add': res = a + b; expr = `${fmt(a)} + ${fmt(b)} = ${fmt(res)}`; break;
+        case 'sub': res = a - b; expr = `${fmt(a)} − ${fmt(b)} = ${fmt(res)}`; break;
+        case 'mul': res = a * b; expr = `${fmt(a)} × ${fmt(b)} = ${fmt(res)}`; break;
+        case 'div': 
+          if (b === 0){
+            resultEl.textContent = 'Result: Error';
+            explain.textContent = 'Division by zero is not allowed.';
+            addHistory(`${fmt(a)} ÷ ${fmt(b)} → Error (division by zero)`);
+            return;
+          }
+          res = a / b; expr = `${fmt(a)} ÷ ${fmt(b)} = ${fmt(res)}`; break;
+        default: res = NaN; expr = 'Unknown operation';
+      }
+
+      resultEl.textContent = `Result: ${fmt(res)}`;
+      explain.textContent = expr;
+      addHistory(expr);
+    }
+
+    function addHistory(text){
+      const item = document.createElement('small');
+      item.textContent = `${new Date().toLocaleTimeString()} — ${text}`;
+      historyEl.prepend(item);
+      // keep history reasonable length
+      while(historyEl.children.length > 20) historyEl.removeChild(historyEl.lastChild);
+    }
+
+    calcBtn.addEventListener('click', compute);
+
+    // allow Enter key to calculate from either input
+    [num1, num2].forEach(i => i.addEventListener('keydown', (e)=>{
+      if (e.key === 'Enter') compute();
+    }));
+
+    // clear history
+    clearHistory.addEventListener('click', ()=>{
+      historyEl.innerHTML = '';
+    });
+
+    // optional: live update when operation changes
+    op.addEventListener('change', compute);
+
+    // pre-fill example values
+    num1.value = '';
+    num2.value = '';
+  </script></body>
+</html>
