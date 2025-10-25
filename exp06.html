@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cake Shop</title>
+
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    /* Header */
+    header {
+      background-color: #b22222;
+      color: white;
+      padding: 15px;
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    /* Cake Image Section */
+    .cake-gallery {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+      margin: 20px auto;
+    }
+
+    .cake-item {
+      background-color: white;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 3px
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      width: 200px;
+      transition: 0.3s;
+    }
+
+    .cake-item:hover {
+      transform: scale(1.05);
+    }
+
+    .cake-item img {
+      width: 100%;
+      height: 150px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .cake-item p {
+      margin: 10px 0;
+      font-weight: 500;
+    }
+
+    /* Order Form Section */
+    .order-section {
+      background-color: white;
+      margin: 30px auto;
+      width: 400px;
+      border-radius: 15px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      padding: 25px;
+    }
+
+    .order-section h2 {
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      font-weight: 500;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    input:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 5px #007bff;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #placeOrder {
+      background-color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    #placeOrder:hover {
+      background-color: #0056b3;
+    }
+
+    #purchaseBtn {
+      background-color: #28a745;
+    }
+
+    #purchaseBtn:hover {
+      background-color: #218838;
+    }
+
+    .total {
+      margin-top: 10px;
+      background-color: #28a745;
+      color: white;
+      padding: 10px;
+      border-radius: 6px;
+      font-weight: bold;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>CAKE SHOP</header>
+
+  <!-- Cake Gallery -->
+  <div class="cake-gallery">
+    <div class="cake-item">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScbQDJu_q0OTGJFkZEkjHikxakXgISolMW-A&s" alt="Rainbow Cake">
+      <p>Rainbow Cake – Rs. 300</p>
+    </div>
+    <div class="cake-item">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6zTV6yqFb6RcLSHFy7gPxqrOOjavVohM6Pw&s" alt="Chocolate Cake">
+      <p>Chocolate Cake – Rs. 200</p>
+    </div>
+    <div class="cake-item">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBKcrnGeWRCJ3A-x6JgxNbWjnxdCW7vUEb6A&s" alt="Red Velvet Cake">
+      <p>Red Velvet Cake – Rs. 250</p>
+    </div>
+    <div class="cake-item">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDRG8JqEPoD08_lM5iwCtjTxnQhm1ub8xiqA&s" alt="Black Forest Cake">
+      <p>Black Forest Cake – Rs. 350</p>
+    </div>
+  </div>
+
+  <!-- Order Form -->
+  <div class="order-section">
+    <h2>Order Cake</h2>
+
+    <form id="cakeForm">
+      <label>Rainbow Cake (Quantity)</label>
+      <input type="number" id="rainbow" min="0" value="0">
+
+      <label>Chocolate Cake (Quantity)</label>
+      <input type="number" id="choco" min="0" value="0">
+
+      <label>Red Velvet Cake (Quantity)</label>
+      <input type="number" id="redvelvet" min="0" value="0">
+
+      <label>Black Forest Cake (Quantity)</label>
+      <input type="number" id="blackforest" min="0" value="0">
+
+      <button type="button" id="placeOrder">Place Order</button>
+      <button type="button" id="purchaseBtn">Purchase Order Bill!!!</button>
+      <div class="total" id="totalPrice">Total Price: Rs. 0</div>
+    </form>
+  </div>
+
+  <!-- jQuery Script -->
+  <script>
+    $(document).ready(function(){
+
+      $("#placeOrder, #purchaseBtn").click(function(){
+        let rainbow = parseInt($("#rainbow").val()) || 0;
+        let choco = parseInt($("#choco").val()) || 0;
+        let redvelvet = parseInt($("#redvelvet").val()) || 0;
+        let blackforest = parseInt($("#blackforest").val()) || 0;
+
+        // Prices
+        let rainbowPrice = 300;
+        let chocoPrice = 200;
+        let redvelvetPrice = 250;
+        let blackforestPrice = 350;
+
+        // Total Calculation
+        let total = (rainbow * rainbowPrice) + 
+                    (choco * chocoPrice) + 
+                    (redvelvet * redvelvetPrice) + 
+                    (blackforest * blackforestPrice);
+
+        // Display total
+        $("#totalPrice").text("Total Price: Rs. " + total).slideDown();
+      });
+    });
+  </script>
+
+</body>
+</html>
