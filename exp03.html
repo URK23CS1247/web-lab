@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photography Contest</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: #f8f8f8;
+      color: #333;
+    }
+
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      background: #111;
+      color: #fff;
+    }
+
+    nav .logo {
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #f39c12;
+    }
+
+    /* Hero Banner */
+    .hero {
+      background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkGKW_AGfupod-isaj3NkRLnaY8X9kxh3bVg&s') center/cover no-repeat;
+      height: 60vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 50px;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+    }
+
+    /* Contest Details */
+    .details {
+      padding: 50px;
+      text-align: center;
+    }
+
+    .details h2 {
+      margin-bottom: 20px;
+      font-size: 28px;
+      color: #222;
+    }
+
+    .details p {
+      max-width: 700px;
+      margin: auto;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    /* Gallery */
+    .gallery {
+      padding: 50px;
+      background: #fff;
+    }
+
+    .gallery h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 28px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+
+    .grid img {
+      width: 100%;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+    }
+
+    .grid img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Registration Form */
+    .register {
+      padding: 50px;
+      background: #f4f4f4;
+      text-align: center;
+    }
+
+    .register h2 {
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    form {
+      max-width: 500px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    form input, form textarea, form button {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    form button {
+      background: #111;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    form button:hover {
+      background: #f39c12;
+    }
+
+    /* Footer */
+    footer {
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">PhotoContest</div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#details">Details</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#register">Register</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Banner -->
+  <section class="hero">
+    <h1>Join Our Photography Contest 2025</h1>
+  </section>
+
+  <!-- Contest Details -->
+  <section class="details" id="details">
+    <h2>About the Contest</h2>
+    <p>
+      Showcase your photography skills! Submit your best shots and stand a chance 
+      to win exciting prizes. The contest is open to all skill levels, so whether 
+      you are a beginner or a pro, join us and let your creativity shine!
+    </p>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery" id="gallery">
+    <h2>Sample Entries</h2>
+    <div class="grid">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRd_NJBRwlSQDsewF0oex0dfLLxHON0X-_xuw&s" alt="sample1">
+      <img src="https://natureconservancy-h.assetsadobe.com/is/image/content/dam/tnc/nature/en/photos/z/u/Zugpsitze_mountain.jpg?crop=0%2C176%2C3008%2C1654&wid=1300&hei=715&scl=2.313846153846154" alt="sample2">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT476uC7qxI-AVAreRct8N1eHHmZoa-Z5hjUw&s" alt="sample3">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROsr3T9x0DS-sZ2_UcohTatqiDZEpYcefksg&s" alt="sample4">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjLQiKNbWZyLT28F47M-G4kalU-fFNdHmCeQ&s" alt="sample5">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgT7N-OW95FNeMjV2eRznS38FeVq1O8DdODA&s" alt="sample6">
+    </div>
+  </section>
+
+  <!-- Registration Form -->
+  <section class="register" id="register">
+    <h2>Register Now</h2>
+    <form>
+      <input type="text" placeholder="Full Name" required>
+      <input type="email" placeholder="Email Address" required>
+      <input type="file" accept="image/*" required>
+      <textarea placeholder="Tell us about your photo..." rows="4"></textarea>
+      <button type="submit">Submit Entry</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Photography Contest | All Rights Reserved
+  </footer>
+</body>
+</html>
